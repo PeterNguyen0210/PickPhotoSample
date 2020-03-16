@@ -81,7 +81,7 @@ object PickPhotoHelper {
                 }
 
                 // get image parent name
-                val parentName = File(path).parentFile.name
+                val parentName = File(path).parentFile?.name
 //                    Log.d(PickConfig.TAG, parentName + ":" + path)
                 // save all Photo
                 if (!mGroupMap.containsKey(PickConfig.ALL_PHOTOS)) {
@@ -93,14 +93,17 @@ object PickPhotoHelper {
                     mGroupMap[PickConfig.ALL_PHOTOS]?.add(path)
                 }
                 // save by parent name
-                if (!mGroupMap.containsKey(parentName)) {
-                    dirNames.add(parentName)
-                    val chileList = ArrayList<String>()
-                    chileList.add(path)
-                    mGroupMap[parentName] = chileList
-                } else {
-                    mGroupMap[parentName]?.add(path)
+                if(parentName != null){
+                    if (!mGroupMap.containsKey(parentName)) {
+                        dirNames.add(parentName)
+                        val chileList = ArrayList<String>()
+                        chileList.add(path)
+                        mGroupMap[parentName] = chileList
+                    } else {
+                        mGroupMap[parentName]?.add(path)
+                    }
                 }
+
             }
             mCursor.close()
             val groupImage = GroupImage()

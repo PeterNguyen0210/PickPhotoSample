@@ -3,6 +3,7 @@ package com.werb.pickphotoview.widget
 import android.content.Context
 import android.graphics.PorterDuff
 import android.net.Uri
+import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.werb.pickphotoview.event.PickPreviewEvent
 import com.werb.pickphotoview.extensions.color
 import com.werb.pickphotoview.extensions.drawable
 import com.werb.pickphotoview.extensions.string
+import com.werb.pickphotoview.util.MyDrawableCompat
 import com.werb.pickphotoview.util.PickPhotoHelper
 import kotlinx.android.synthetic.main.pick_widget_view_preview.view.*
 
@@ -42,7 +44,10 @@ class PreviewImage : FrameLayout {
     fun setImage(path: String, full: () -> Unit) {
         select(path)
         image.setOnClickListener { full() }
-        image.isDrawingCacheEnabled = true
+        @Suppress("DEPRECATION")
+        if( (Build.VERSION.SDK_INT < 28) )
+            image.isDrawingCacheEnabled = true
+
         selectLayout.setOnClickListener {
             if (images.contains(path)) {
                 removeImage(path)
@@ -95,7 +100,9 @@ class PreviewImage : FrameLayout {
             val drawable = context.drawable(R.drawable.pick_svg_select_select)
             val back = context.drawable(R.drawable.pick_svg_select_back)
             GlobalData.model?.selectIconColor?.let {
-                back.setColorFilter(context.color(it), PorterDuff.Mode.SRC_IN)
+                if (back != null) {
+                    MyDrawableCompat.setColorFilter(back, context.color(it))
+                }
             }
             selectLayout.background = drawable
             selectBack.background = back

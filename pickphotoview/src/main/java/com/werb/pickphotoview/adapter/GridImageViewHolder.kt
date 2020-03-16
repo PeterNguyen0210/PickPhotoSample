@@ -17,6 +17,7 @@ import com.werb.pickphotoview.R
 import com.werb.pickphotoview.extensions.color
 import com.werb.pickphotoview.extensions.drawable
 import com.werb.pickphotoview.util.GlideHelper
+import com.werb.pickphotoview.util.MyDrawableCompat
 import java.lang.ref.WeakReference
 
 
@@ -89,7 +90,9 @@ class GridImageViewHolder(values: MutableMap<String, Any>, containerView: View) 
             val drawable = context.drawable(R.drawable.pick_svg_select_select)
             val back = context.drawable(R.drawable.pick_svg_select_back)
             GlobalData.model?.selectIconColor?.let {
-                back.setColorFilter(context.color(it), PorterDuff.Mode.SRC_IN)
+                if (back != null) {
+                    MyDrawableCompat.setColorFilter(back, context.color(it))
+                }
             }
             selectLayout.background = drawable
             selectBack.background = back

@@ -1,13 +1,14 @@
 package com.werb.pickphotoview
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
-import android.graphics.PorterDuff
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.annotation.Keep
 import androidx.fragment.app.FragmentTransaction
-
 import com.werb.eventbus.EventBus
 import com.werb.eventbus.Subscriber
 import com.werb.pickphotoview.event.PickFinishEvent
@@ -18,6 +19,7 @@ import com.werb.pickphotoview.extensions.drawable
 import com.werb.pickphotoview.extensions.string
 import com.werb.pickphotoview.ui.GridFragment
 import com.werb.pickphotoview.ui.ListFragment
+import com.werb.pickphotoview.util.MyDrawableCompat
 import com.werb.pickphotoview.util.PickConfig
 import com.werb.pickphotoview.util.PickPhotoHelper
 import com.werb.pickphotoview.util.PickUtils
@@ -56,11 +58,7 @@ class PickPhotoActivity :  BasePickActivity() {
             sure.text = String.format(string(R.string.pick_photo_sure), selectImages.size)
             sure.setOnClickListener { add() }
 
-            if (it.lightStatusBar) {
-                select.setColorFilter(color(R.color.pick_gray), PorterDuff.Mode.SRC_IN)
-            } else {
-                select.setColorFilter(color(R.color.pick_white), PorterDuff.Mode.SRC_IN)
-            }
+            select?.let { it1 -> MyDrawableCompat.setColorFilter(it1, color(if(it.lightStatusBar) R.color.pick_gray else R.color.pick_white)) }
             selectArrow.background = select
 
             cancel.setOnClickListener { finish() }
@@ -146,6 +144,24 @@ class PickPhotoActivity :  BasePickActivity() {
             return
         }
         if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
+//            if (Build.VERSION.SDK_INT >= 29) {
+//                val values = ContentValues()
+//                values.put(MediaStore.MediaColumns.RELATIVE_PATH, "DCIM/$directoryName")
+//                values.put(MediaStore.MediaColumns.DATE_TAKEN, System.currentTimeMillis())
+//                values.put(MediaStore.MediaColumns.IS_PENDING, true)
+//                val uri: Uri = this.getContentResolver().insert(externalContentUri, values)
+//                if (uri != null) {
+//                    try {
+//                        if (WriteFileToStream(originalFile, context.getContentResolver().openOutputStream(uri))) {
+//                            values.put(MediaStore.MediaColumns.IS_PENDING, false)
+//                            this.getContentResolver().update(uri, values, null, null)
+//                        }
+//                    } catch (e: Exception) {
+//                        Log.e("Unity", "Exception:", e)
+//                        this.getContentResolver().delete(uri, null, null)
+//                    }
+//                }
+//            }
             var path: String?
             if (data != null && data.data != null) {
                 path = data.data!!.path
