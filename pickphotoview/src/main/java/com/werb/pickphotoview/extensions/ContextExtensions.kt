@@ -12,4 +12,4 @@ fun Context.color(resId: Int) : Int = resources.getColor(resId)
 
 fun Context.string(resId: Int) : String = getString(resId)
 
-fun Context.alphaColor(resId: Int) : Int  = Color.argb(77, Color.red(resId), Color.green(resId), Color.blue(resId))
+fun alphaColor(resId: Int) : Int  = Color.argb(77, Color.red(resId), Color.green(resId), Color.blue(resId))

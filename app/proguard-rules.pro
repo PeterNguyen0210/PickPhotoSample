@@ -19,19 +19,28 @@
 -ignorewarnings
 
 #glide
+
 -keep public class * implements com.bumptech.glide.module.GlideModule
--keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule {
+ <init>(...);
+}
 -keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
   **[] $VALUES;
   public *;
 }
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
+  *** rewind();
+}
+
+# Uncomment for DexGuard only
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 # moretype
 -keepclassmembers  class * extends com.werb.library.link.XDiffCallback{
  public <init>(java.util.List, java.util.List);
 }
 -keepclassmembers class * extends com.werb.library.MoreViewHolder{
- public <init>(android.view.View);
+ public <init>(java.util.Map, android.view.View);
 }
 
 #eventbus
@@ -45,3 +54,4 @@
 # pickPhoto
 -keepattributes *Annotation*
 -keep @android.support.annotation.Keep class **
+-keep @androidx.annotation.Keep class **

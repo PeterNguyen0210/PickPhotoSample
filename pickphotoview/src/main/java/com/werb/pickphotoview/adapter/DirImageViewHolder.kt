@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.pick_item_list_layout.*
 
 /** Created by wanbo <werbhelius@gmail.com> on 2017/10/18. */
 
-class DirImageViewHolder(containerView: View) : MoreViewHolder<String>(containerView) {
+class DirImageViewHolder(values: MutableMap<String, Any>, containerView: View) : MoreViewHolder<String>(values, containerView) {
 
     private val context = containerView.context
     private val groupImage = PickPhotoHelper.groupImage

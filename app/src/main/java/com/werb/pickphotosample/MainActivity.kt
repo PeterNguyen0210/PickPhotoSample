@@ -3,11 +3,11 @@ package com.werb.pickphotosample
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.AppCompatTextView
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 
 import com.werb.permissionschecker.PermissionChecker
 import com.werb.pickphotoview.PickPhotoView
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Select Single Image - When image is selected, gallery immediately closes and returns image.
-        val btn1 = findViewById<AppCompatTextView>(R.id.btn1)
+        val btn1 = findViewById<TextView>(R.id.btn1)
         btn1.setOnClickListener {
             PickPhotoView.Builder(this@MainActivity)
                 .setPickPhotoSize(1)                  // select image size
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Select Multiple Images - User can select multiple images and click Select to confirm.
-        val btn2 = findViewById<AppCompatTextView>(R.id.btn2)
+        val btn2 = findViewById<TextView>(R.id.btn2)
         btn2.setOnClickListener {
             PickPhotoView.Builder(this@MainActivity)
                 .setPickPhotoSize(9)
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Image Preview Select - Clicking on image opens Image Preview. Must click select icon to select image.
-        val btn3 = findViewById<View>(R.id.btn3) as AppCompatTextView
+        val btn3 = findViewById<View>(R.id.btn3) as TextView
         btn3.setOnClickListener {
             PickPhotoView.Builder(this@MainActivity)
                 .setPickPhotoSize(6)

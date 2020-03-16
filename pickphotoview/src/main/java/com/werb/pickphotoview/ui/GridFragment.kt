@@ -2,15 +2,15 @@ package com.werb.pickphotoview.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.Keep
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.Keep
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.werb.eventbus.EventBus
@@ -34,6 +34,7 @@ import com.werb.pickphotoview.util.PickPhotoHelper
 import com.werb.pickphotoview.util.PickUtils
 import kotlinx.android.synthetic.main.pick_fragment_grid.*
 import java.io.Serializable
+import kotlin.math.abs
 
 /** Created by wanbo <werbhelius@gmail.com> on 2017/10/18. */
 
@@ -184,7 +185,7 @@ class GridFragment : Fragment() {
     private var scrollListener: RecyclerView.OnScrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            if (Math.abs(dy) > PickConfig.SCROLL_THRESHOLD) {
+            if (abs(dy) > PickConfig.SCROLL_THRESHOLD) {
                 manager.pauseRequests()
             } else {
                 manager.resumeRequests()

@@ -12,7 +12,7 @@ import java.io.IOException
 
 /** Created by wanbo <werbhelius@gmail.com> on 2017/10/19. */
 
-class CameraViewHolder(containerView: View) : MoreViewHolder<String>(containerView) {
+class CameraViewHolder(values: MutableMap<String, Any>, containerView: View) : MoreViewHolder<String>(values, containerView) {
 
     private val context = containerView.context
 

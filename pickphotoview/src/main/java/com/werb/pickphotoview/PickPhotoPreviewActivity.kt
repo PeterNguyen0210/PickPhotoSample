@@ -1,15 +1,16 @@
 package com.werb.pickphotoview
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.Keep
-import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
+import androidx.annotation.Keep
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.werb.eventbus.EventBus
 import com.werb.eventbus.Subscriber
 import com.werb.pickphotoview.event.PickPreviewEvent
@@ -51,16 +52,17 @@ class PickPhotoPreviewActivity : BasePickActivity() {
         EventBus.unRegister(this)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initToolbar() {
-        GlobalData.model?.let {
-            toolbar.setBackgroundColor(color(it.toolbarColor))
-            statusBar.setBackgroundColor(color(it.statusBarColor))
-            midTitle.setTextColor(color(it.toolbarTextColor))
-            cancel.setTextColor(color(it.toolbarTextColor))
+        GlobalData.model?.let { pickModel ->
+            toolbar.setBackgroundColor(color(pickModel.toolbarColor))
+            statusBar.setBackgroundColor(color(pickModel.statusBarColor))
+            midTitle.setTextColor(color(pickModel.toolbarTextColor))
+            cancel.setTextColor(color(pickModel.toolbarTextColor))
             if (selectImages.size > 0) {
-                sure.setTextColor(color(it.toolbarTextColor))
+                sure.setTextColor(color(pickModel.toolbarTextColor))
             } else {
-                sure.setTextColor(alphaColor(color(it.toolbarTextColor)))
+                sure.setTextColor(alphaColor(color(pickModel.toolbarTextColor)))
             }
             sure.text = String.format(string(R.string.pick_photo_sure), selectImages.size)
             sure.setOnClickListener { add() }
@@ -78,6 +80,7 @@ class PickPhotoPreviewActivity : BasePickActivity() {
 
                     }
 
+                    @SuppressLint("SetTextI18n")
                     override fun onPageSelected(position: Int) {
                         val i = position + 1
                         midTitle.text = "$i/$all"

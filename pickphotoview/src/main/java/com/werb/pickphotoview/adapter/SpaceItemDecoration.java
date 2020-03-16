@@ -1,7 +1,9 @@
 package com.werb.pickphotoview.adapter;
 
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 /**
@@ -10,8 +12,8 @@ import android.view.View;
 
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
-    private int space;
-    private int spanCount;
+    private final int space;
+    private final int spanCount;
 
     public SpaceItemDecoration(int space, int spanCount) {
         this.space = space;
@@ -19,7 +21,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         outRect.left = space;
         outRect.bottom = space;

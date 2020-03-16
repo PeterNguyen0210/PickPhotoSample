@@ -1,13 +1,13 @@
 package com.werb.pickphotoview
 
 import android.app.Activity
-import android.app.FragmentTransaction
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
-import android.support.annotation.Keep
-import android.support.v4.app.Fragment
+import androidx.annotation.Keep
+import androidx.fragment.app.FragmentTransaction
+
 import com.werb.eventbus.EventBus
 import com.werb.eventbus.Subscriber
 import com.werb.pickphotoview.event.PickFinishEvent
@@ -61,7 +61,7 @@ class PickPhotoActivity :  BasePickActivity() {
             } else {
                 select.setColorFilter(color(R.color.pick_white), PorterDuff.Mode.SRC_IN)
             }
-            selectArrow.setBackgroundDrawable(select)
+            selectArrow.background = select
 
             cancel.setOnClickListener { finish() }
             switchLayout.setOnClickListener { switch() }
@@ -148,9 +148,11 @@ class PickPhotoActivity :  BasePickActivity() {
         if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
             var path: String?
             if (data != null && data.data != null) {
-                path = data.data.path
-                if (path.contains("/pick_camera")) {
-                    path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera")
+                path = data.data!!.path
+                if (path != null) {
+                    if (path.contains("/pick_camera")) {
+                        path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera")
+                    }
                 }
             } else {
                 path = PickUtils.getInstance(this.applicationContext).getFilePath(this)

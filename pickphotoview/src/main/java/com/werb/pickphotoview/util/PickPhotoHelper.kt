@@ -3,7 +3,7 @@ package com.werb.pickphotoview.util
 import android.content.ContentResolver
 import android.database.Cursor
 import android.provider.MediaStore
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import android.util.Log
 import com.werb.eventbus.EventBus
 import com.werb.pickphotoview.event.PickFinishEvent
@@ -88,7 +88,7 @@ object PickPhotoHelper {
                     dirNames.add(PickConfig.ALL_PHOTOS)
                     val chileList = ArrayList<String>()
                     chileList.add(path)
-                    mGroupMap.put(PickConfig.ALL_PHOTOS, chileList)
+                    mGroupMap[PickConfig.ALL_PHOTOS] = chileList
                 } else {
                     mGroupMap[PickConfig.ALL_PHOTOS]?.add(path)
                 }
@@ -97,7 +97,7 @@ object PickPhotoHelper {
                     dirNames.add(parentName)
                     val chileList = ArrayList<String>()
                     chileList.add(path)
-                    mGroupMap.put(parentName, chileList)
+                    mGroupMap[parentName] = chileList
                 } else {
                     mGroupMap[parentName]?.add(path)
                 }

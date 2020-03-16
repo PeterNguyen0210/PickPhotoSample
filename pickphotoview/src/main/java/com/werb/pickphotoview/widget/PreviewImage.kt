@@ -26,9 +26,9 @@ class PreviewImage : FrameLayout {
 
     private val images = PickPhotoHelper.selectImages
 
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     init {
         initView()
@@ -65,7 +65,7 @@ class PreviewImage : FrameLayout {
             }
         }
         Glide.with(context)
-                .load(Uri.parse("file://" + path))
+                .load(Uri.parse("file://$path"))
                 .thumbnail(.1f)
                 .into(image)
     }
@@ -97,13 +97,13 @@ class PreviewImage : FrameLayout {
             GlobalData.model?.selectIconColor?.let {
                 back.setColorFilter(context.color(it), PorterDuff.Mode.SRC_IN)
             }
-            selectLayout.setBackgroundDrawable(drawable)
-            selectBack.setBackgroundDrawable(back)
+            selectLayout.background = drawable
+            selectBack.background = back
         } else {
             check.visibility = View.GONE
             selectBack.visibility = View.GONE
             val drawable = context.drawable(R.drawable.pick_svg_select_default)
-            selectLayout.setBackgroundDrawable(drawable)
+            selectLayout.background = drawable
         }
 
     }

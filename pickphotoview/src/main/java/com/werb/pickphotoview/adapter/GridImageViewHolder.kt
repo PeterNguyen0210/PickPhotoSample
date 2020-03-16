@@ -16,14 +16,13 @@ import com.werb.pickphotoview.PickPhotoPreviewActivity
 import com.werb.pickphotoview.R
 import com.werb.pickphotoview.extensions.color
 import com.werb.pickphotoview.extensions.drawable
-import com.werb.pickphotoview.model.PickModel
 import com.werb.pickphotoview.util.GlideHelper
 import java.lang.ref.WeakReference
 
 
 /** Created by wanbo <werbhelius@gmail.com> on 2017/9/17. */
 
-class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(containerView) {
+class GridImageViewHolder(values: MutableMap<String, Any>, containerView: View) : MoreViewHolder<GridImage>(values, containerView) {
 
     private val context = containerView.context
     private var weekImage: ImageView? = null
@@ -37,7 +36,7 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
             params.width = scaleSize
             params.height = scaleSize
 
-            val imageViewWeakReference = WeakReference<ImageView>(image)
+            val imageViewWeakReference = WeakReference(image)
             weekImage = imageViewWeakReference.get()
         }
     }
@@ -92,13 +91,13 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
             GlobalData.model?.selectIconColor?.let {
                 back.setColorFilter(context.color(it), PorterDuff.Mode.SRC_IN)
             }
-            selectLayout.setBackgroundDrawable(drawable)
-            selectBack.setBackgroundDrawable(back)
+            selectLayout.background = drawable
+            selectBack.background = back
         } else {
             check.visibility = View.GONE
             selectBack.visibility = View.GONE
             val drawable = context.drawable(R.drawable.pick_svg_select_default)
-            selectLayout.setBackgroundDrawable(drawable)
+            selectLayout.background = drawable
         }
     }
 
